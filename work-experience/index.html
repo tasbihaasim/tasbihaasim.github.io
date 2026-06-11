@@ -1,0 +1,165 @@
+<!-- work-experience/index.html -->
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Work Experience — Tasbiha</title>
+  <meta name="description" content="Work experience by Tasbiha." />
+
+  <!-- work-experience/ is one level deep -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- YAML parser -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+
+  <style>
+    /* Small additions for this page (keeps it consistent with Projects tiles) */
+    .tile-sub {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 16px;
+      line-height: 1.2;
+    }
+    .tile-sub2 {
+      margin-top: 6px;
+      color: var(--muted);
+      font-size: 14px;
+      line-height: 1.2;
+    }
+    .tile-thumb {
+      border-radius: 18px;
+      overflow: hidden;
+      background: rgba(255,255,255,0.03);
+      border: 1px solid var(--line);
+      width: 100%;
+      max-height: 180px;
+      display: block;
+      margin-bottom: 12px;
+    }
+    .tile-thumb img {
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      display: block;
+      background: #fff;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="siteHeader"></div>
+
+  <main class="container page-wrap projects-page">
+    <h1 class="page-title">Work Experience</h1>
+    <p class="muted" style="margin: 6px 0 18px 0;">
+      Click a role to see the full details.
+    </p>
+
+    <section id="grid" class="grid" aria-label="Work experience grid"></section>
+    <p id="empty" class="empty">No entries found.</p>
+  </main>
+
+  <div id="siteFooter"></div>
+
+  <!-- Header/footer injection -->
+  <script src="../assets/js/layout.js" defer></script>
+
+  <script>
+    // Base path (works for user site, repo site, custom domain)
+    const pathname = location.pathname;
+    const idx = pathname.indexOf("/work-experience");
+    const BASE = idx === -1 ? "" : pathname.slice(0, idx);
+
+    function resolvePath(u) {
+      if (!u) return "";
+      if (/^https?:\/\//i.test(u)) return u;
+      if (u.startsWith("/")) return BASE + u;
+      return BASE + "/" + u;
+    }
+
+    function card(ex) {
+      const a = document.createElement("a");
+      a.className = "tile";
+      a.href = `./${ex.slug}/`;
+
+      if (ex.logo) {
+        const thumb = document.createElement("div");
+        thumb.className = "tile-thumb";
+        const logo = document.createElement("img");
+        logo.src = resolvePath(ex.logo);
+        logo.alt = ex.company ? `${ex.company} logo` : "Experience logo";
+        thumb.appendChild(logo);
+        a.appendChild(thumb);
+      }
+
+      const meta = document.createElement("div");
+      meta.className = "tile-meta";
+
+      const left = document.createElement("div");
+
+      const h3 = document.createElement("h3");
+      h3.className = "tile-title";
+      h3.textContent = ex.role || "Untitled Role";
+
+      const sub = document.createElement("div");
+      sub.className = "tile-sub";
+      sub.textContent = ex.company || "";
+
+      const sub2 = document.createElement("div");
+      sub2.className = "tile-sub2";
+      sub2.textContent = ex.location || "";
+
+      left.appendChild(h3);
+      if (sub.textContent) left.appendChild(sub);
+      if (sub2.textContent && sub2.textContent !== "TBD") left.appendChild(sub2);
+
+      const right = document.createElement("div");
+      right.className = "tile-year";
+      right.textContent = ex.duration || "";
+
+      meta.appendChild(left);
+      meta.appendChild(right);
+
+      a.appendChild(meta);
+
+      return a;
+    }
+
+    async function loadYml() {
+      const res = await fetch("./work-experience.yml", { cache: "no-store" });
+      if (!res.ok) throw new Error(`Failed to load work-experience.yml (${res.status})`);
+      const text = await res.text();
+      const data = jsyaml.load(text);
+
+      if (!data || !Array.isArray(data.experiences)) {
+        throw new Error("work-experience.yml must contain a top-level 'experiences:' list.");
+      }
+      return data.experiences;
+    }
+
+    (async function init() {
+      const gridEl = document.getElementById("grid");
+      const emptyEl = document.getElementById("empty");
+
+      try {
+        const experiences = await loadYml();
+
+        gridEl.innerHTML = "";
+        if (!experiences.length) {
+          emptyEl.style.display = "block";
+          return;
+        }
+        emptyEl.style.display = "none";
+
+        // Order is exactly as in YAML (you control it)
+        experiences.forEach(ex => gridEl.appendChild(card(ex)));
+      } catch (err) {
+        console.error(err);
+        emptyEl.style.display = "block";
+        emptyEl.textContent = "Could not load work experience. Check console for details.";
+      }
+    })();
+  </script>
+</body>
+</html>

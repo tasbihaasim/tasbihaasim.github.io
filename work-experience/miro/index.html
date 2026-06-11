@@ -1,0 +1,353 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Miro — Work Experience — Tasbiha</title>
+  <meta name="description" content="Backend engineer on AI platform, data engineering, and infrastructure teams at Miro." />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+    /* Tech stack icon strip */
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0 20px 0;
+    }
+    .tech-stack img {
+      height: 28px;
+      width: auto;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+      filter: grayscale(20%);
+    }
+    .tech-stack img:hover {
+      opacity: 1;
+    }
+    .tech-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 4px;
+      margin-top: 16px;
+    }
+    .company-logo {
+      max-width: 180px;
+      height: auto;
+      margin-bottom: 20px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="siteHeader"></div>
+
+  <main class="container page-wrap project-page">
+    <a class="muted" href="/work-experience/">← Back to Work Experience</a>
+
+    <h1>Miro</h1>
+    <img src="/assets/img/work-experience-miro/miro.png" alt="Miro logo" class="company-logo" />
+    <p class="lead">Aug 2024 — Aug 2026 · Amsterdam, Netherlands</p>
+
+    <p>
+      Miro is a visual collaboration platform used by millions of teams worldwide. I joined straight out of my MSc
+      as a Graduate Software Engineer, working across the Data Engineering and AI Platform teams, before being
+      promoted to Associate Software Engineer in August 2025.
+    </p>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="prose">
+
+        <h2>AI Platform Team — Associate</h2>
+        <p class="muted-label">Associate Software Engineer · Aug 2025 — Aug 2026</p>
+        <p>
+          After promotion, my scope expanded to projects spanning multiple services and teams —
+          compliance integrations, AI audit infrastructure, service decommissioning, and observability.
+        </p>
+
+        <!-- Microsoft Purview -->
+        <h3>Microsoft Purview / AI Governance Integration</h3>
+        <p>
+          Implemented the integration routing AI usage events (user prompts and model responses) to an internal
+          governance service across three Python backend services, enabling Microsoft Purview enterprise compliance
+          reporting. The tricky parts: gRPC error propagation, Redis-based event sequencing, and content-type
+          tagging — all in a domain where "close enough" is not acceptable.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/python.svg"     alt="Python"      title="Python" />
+          <img src="/assets/img/work-experience-miro/grpc.png"        alt="gRPC"        title="gRPC" />
+          <img src="/assets/img/work-experience-miro/redis.svg"       alt="Redis"       title="Redis" />
+          <img src="/assets/img/work-experience-miro/kubernetes.svg"  alt="Kubernetes"  title="Kubernetes" />
+        </div>
+
+        <!-- AI Interaction Logging -->
+        <h3>AI Interaction Logging Producer</h3>
+        <p>
+          Selected to implement a structured AI-interaction-logging producer on an AI model gateway —
+          capturing Input/Output and Model-Invocation events with session-scoped tracking and ordered
+          sequencing across multi-step agentic run cycles. Required close collaboration with an external
+          team to nail the API contract before either side could move fast.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/python.svg"  alt="Python"  title="Python" />
+          <img src="/assets/img/work-experience-miro/grpc.png"     alt="gRPC"    title="gRPC" />
+          <img src="/assets/img/work-experience-miro/redis.svg"    alt="Redis"   title="Redis" />
+        </div>
+
+        <!-- OpenCV -->
+        <h3>OpenCV Migration</h3>
+        <p>
+          Led the migration of an image-processing path from PIL to OpenCV — image decoding 2× faster.
+          Shipped via feature flag with decode-failure metrics from day one, gradual threshold ramp,
+          full library removal, and architectural tests to prevent PIL from being reintroduced.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/python.svg"   alt="Python"  title="Python" />
+          <img src="/assets/img/work-experience-miro/opencv.svg"   alt="OpenCV"  title="OpenCV" />
+          <img src="/assets/img/work-experience-miro/pytest.svg"   alt="Pytest"  title="Pytest" />
+        </div>
+
+        <!-- Observability -->
+        <h3>Observability</h3>
+        <p>
+          Introduced OpenTelemetry trace context into the AI run context for end-to-end request tracing
+          across service boundaries. Fixed broken service-health dashboard panels via a Prometheus
+          recording-rule correction for 7-day histogram queries.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/opentelemetry.svg"  alt="OpenTelemetry"  title="OpenTelemetry" />
+          <img src="/assets/img/work-experience-miro/prometheus.svg"      alt="Prometheus"      title="Prometheus" />
+        </div>
+
+        <!-- Service Decommissioning (Associate) -->
+        <h3>Service Decommissioning</h3>
+        <p>
+          Deprecated 4 legacy ML/AI services (translation inference, multi-modal embedding, internal auth
+          proxy, clustering) with full infrastructure coordination across GitOps, Terraform, and Helm charts.
+          ~$128K in estimated annual savings. Good engineering is as much about knowing what to remove
+          as knowing what to build.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/terraform.svg"   alt="Terraform"   title="Terraform" />
+          <img src="/assets/img/work-experience-miro/helm.svg"         alt="Helm"         title="Helm" />
+          <img src="/assets/img/work-experience-miro/kubernetes.svg"  alt="Kubernetes"  title="Kubernetes" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="prose">
+
+        <h2>AI Platform Team — Graduate</h2>
+        <p class="muted-label">Graduate Software Engineer · Feb 2025 — Aug 2025</p>
+        <p>
+          Transferred from Data Engineering to AI Platform — shifting from pipelines to inference infrastructure,
+          latency, and keeping production ML services alive under real load.
+        </p>
+
+        <!-- Screenshot Scanner -->
+        <h3>Screenshot Scanner Optimisation</h3>
+        <p>
+          The service was sending full image payloads over the wire on every inter-service call.
+          Changing the contract to transmit resource IDs instead — letting the consumer fetch only
+          what it needed — reduced latency noticeably. A fix that looks obvious in hindsight but
+          requires someone to actually question the contract.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/python.svg"  alt="Python"  title="Python" />
+          <img src="/assets/img/work-experience-miro/grpc.png"     alt="gRPC"    title="gRPC" />
+        </div>
+
+        <!-- GA Right-Sizing -->
+        <h3>GA Right-Sizing Strategy</h3>
+        <p>
+          Designed and executed the right-sizing strategy for an image-processing service ahead of
+          General Availability: profiled CPU and memory under varying load, tuned Kubernetes resource
+          requests and limits, and wrote the alerting runbook the team now uses operationally.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/kubernetes.svg"  alt="Kubernetes"  title="Kubernetes" />
+          <img src="/assets/img/work-experience-miro/aws.png"          alt="AWS"          title="AWS EKS" />
+          <img src="/assets/img/work-experience-miro/prometheus.svg"   alt="Prometheus"   title="Prometheus" />
+        </div>
+
+        <!-- Legacy ML Deprecation -->
+        <h3>Legacy ML Service Deprecation</h3>
+        <p>
+          Deprecated three legacy ML services — including Triton Server and an ML inference proxy —
+          coordinating across GitOps, Terraform, and Helm. ~$128K in annual savings.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/terraform.svg"  alt="Terraform"  title="Terraform" />
+          <img src="/assets/img/work-experience-miro/helm.svg"        alt="Helm"        title="Helm" />
+          <img src="/assets/img/work-experience-miro/kubernetes.svg" alt="Kubernetes" title="Kubernetes" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="prose">
+
+        <h2>Data Engineering Team</h2>
+        <p class="muted-label">Graduate Software Engineer · Aug 2024 — Feb 2025</p>
+        <p>
+          First role out of university. The team owns the data pipelines feeding Miro's analytics —
+          ingesting from SaaS tools, transforming in Snowflake via dbt, and keeping it reliable enough
+          for the rest of the company to build on.
+        </p>
+
+        <!-- Airbyte -->
+        <h3>Airbyte Source Migrations</h3>
+        <p>
+          Migrated five SaaS data sources (Skilljar, Telescope, Jira Cloud, Facebook Ads, Marketo)
+          from legacy ingestion to Airbyte-backed dbt models — each end-to-end: dbt sources, Airflow
+          DAGs in Terraform, and downstream model rewiring.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/airbyte.svg"   alt="Airbyte"   title="Airbyte" />
+          <img src="/assets/img/work-experience-miro/dbt.png"        alt="dbt"        title="dbt" />
+          <img src="/assets/img/work-experience-miro/AirflowLogo.svg"   alt="Airflow"   title="Apache Airflow" />
+          <img src="/assets/img/work-experience-miro/terraform.svg" alt="Terraform" title="Terraform" />
+          <img src="/assets/img/work-experience-miro/snowflake.svg" alt="Snowflake" title="Snowflake" />
+        </div>
+
+        <!-- Data Quality -->
+        <h3>Data Quality & Test Coverage</h3>
+        <p>
+          Added unit and data tests across ~15 dbt models — catching schema drift, null values, and
+          referential integrity issues before they become 2am incidents.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/dbt.png"        alt="dbt"        title="dbt" />
+          <img src="/assets/img/work-experience-miro/snowflake.svg"  alt="Snowflake"  title="Snowflake" />
+        </div>
+
+        <!-- FUM -->
+        <h3>Feature Usage Management Initiative</h3>
+        <p>
+          Investigated feature usage across the warehouse, deprecated unused models, and implemented
+          targeted-refresh logic to cut unnecessary compute. Wrote the team's deprecation-process
+          documentation, which became the reference guide for future decisions.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/dbt.png"        alt="dbt"        title="dbt" />
+          <img src="/assets/img/work-experience-miro/snowflake.svg"  alt="Snowflake"  title="Snowflake" />
+          <img src="/assets/img/work-experience-miro/AirflowLogo.svg"   alt="Airflow"   title="Apache Airflow" />
+        </div>
+
+        <!-- Enterprise Guard -->
+        <h3>Enterprise Guard Keyword Detection</h3>
+        <p>
+          Built the first working prototype of a board-title keyword detection service in PySpark —
+          four PRs end-to-end, unit tested, deployed to EU, US, and AU regions via GitHub Actions CI/CD.
+          First fully greenfield project I owned at Miro. It shipped.
+        </p>
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-miro/python.svg"         alt="Python"         title="Python" />
+          <img src="/assets/img/work-experience-miro/advancePySpark.png"        alt="PySpark"        title="PySpark" />
+          <img src="/assets/img/work-experience-miro/github-actions.png" alt="GitHub Actions" title="GitHub Actions" />
+        </div>
+
+      </div>
+    </section>
+
+    <!-- ═══════════════════════════════════════════════════════════════════ -->
+    <section class="section">
+      <div class="prose">
+
+        <h2>On-Duty Engineering</h2>
+        <p>
+          The AI Platform team ran an on-duty rotation — each engineer took turns as the first responder
+          for alerts, incoming pings, and stakeholder queries. The role was as much about routing as
+          fixing: knowing when something wasn't yours and making sure the right person got looped in
+          without creating a bottleneck.
+        </p>
+        <p>
+          The OpenCV migration is a good illustration of why alerting matters more than perfect code.
+          I had instrumented decode-failure metrics from day one — not because I expected something to
+          go wrong, but because shipping without visibility is flying blind. When failures surfaced,
+          the alert fired immediately and gave us a clear signal to investigate rather than waiting for
+          user reports. The root cause turned out to be SVG files, which neither PIL nor OpenCV can
+          decode — unrelated to the migration entirely. The fix was redirected to the right upstream
+          service. Without the alerting, that incident could have gone undetected for much longer.
+          The monitoring you write before something breaks is always worth more than the debugging
+          you do after.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="siteFooter"></div>
+  <script src="/assets/js/layout.js" defer></script>
+
+</body>
+</html>
+
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+IMAGE DOWNLOAD INSTRUCTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+Folder: assets/img/work-experience-miro/
+
+All logos are available as SVGs from Simple Icons (https://simpleicons.org).
+Search for each name, download the SVG, and save with the filename below.
+
+Filename                  Simple Icons search term
+────────────────────────────────────────────────────
+python.svg                Python
+grpc.svg                  gRPC  (search "grpc" — may not be on Simple Icons;
+                          use the official gRPC logo from grpc.io/img/logos/)
+redis.svg                 Redis
+kubernetes.svg            Kubernetes
+opentelemetry.svg         OpenTelemetry
+prometheus.svg            Prometheus
+opencv.svg                OpenCV  (official: opencv.org/wp-content/uploads/
+                          2022/05/OpenCV_Logo_with_text.png — convert to SVG
+                          or use the icon variant)
+pytest.svg                pytest  (use https://docs.pytest.org/en/stable/
+                          _static/pytest_logo_curves.svg)
+terraform.svg             Terraform
+helm.svg                  Helm  (search "helm" on Simple Icons)
+aws.svg                   Amazon AWS
+airbyte.svg               Airbyte  (official: airbyte.com — may not be on
+                          Simple Icons; use docs.airbyte.com favicon SVG)
+dbt.png                   dbt
+airflow.svg               Apache Airflow
+snowflake.svg             Snowflake
+pyspark.svg               Apache Spark  (PySpark uses the Spark logo —
+                          search "Apache Spark" on Simple Icons)
+github-actions.svg        GitHub Actions
+
+TIPS
+────
+• Simple Icons colours are often black/monochrome. To match your site theme,
+  open each SVG in a text editor and set fill="currentColor" so they inherit
+  your CSS colour, or set a specific hex on the <svg> element.
+• Recommended display size: height: 28px in CSS (already set above).
+• If a logo isn't on Simple Icons, check the official brand assets page for
+  that product — most open-source tools publish an SVG logo.
+═══════════════════════════════════════════════════════════════════════════════
+-->

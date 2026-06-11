@@ -1,0 +1,366 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>TNO Helmond — Work Experience — Tasbiha</title>
+  <meta name="description" content="MSc thesis research on autonomous vehicle social acceptance, lane-change detection, and risk modelling using real-world driving data." />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+    .hero-image {
+      width: 100%;
+      max-height: 420px;
+      object-fit: cover;
+      border-radius: 8px;
+      margin: 24px 0 32px 0;
+    }
+    .image-pair {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 16px;
+      margin: 20px 0 28px 0;
+    }
+    .image-pair img {
+      width: 100%;
+      border-radius: 6px;
+      object-fit: cover;
+    }
+    .image-pair figcaption {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 6px;
+    }
+    .figure-single {
+      margin: 20px 0 28px 0;
+    }
+    .figure-single img {
+      width: 100%;
+      border-radius: 6px;
+    }
+    .figure-single figcaption {
+      font-size: 0.8rem;
+      color: #888;
+      margin-top: 6px;
+    }
+    .thesis-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      margin: 24px 0;
+      padding: 12px 20px;
+      border: 1px solid currentColor;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .thesis-link:hover { opacity: 1; }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0 24px 0;
+    }
+    .tech-stack img {
+      height: 26px;
+      width: auto;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .tech-stack img:hover { opacity: 1; }
+    .tech-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin-bottom: 4px;
+      margin-top: 20px;
+    }
+    .finding-box {
+      border-left: 3px solid currentColor;
+      padding: 12px 16px;
+      margin: 20px 0;
+      opacity: 0.85;
+      font-style: italic;
+      font-size: 0.95rem;
+    }
+    .company-logo {
+      max-width: 180px;
+      height: auto;
+      margin: 18px 0 24px;
+      display: block;
+    }
+  </style>
+</head>
+
+<body>
+  <div id="siteHeader"></div>
+
+  <main class="container page-wrap project-page">
+    <a class="muted" href="/work-experience/">← Back to Work Experience</a>
+
+    <h1>TNO Helmond</h1>
+    <img src="/assets/img/work-experience-tno/tno-logo.png" alt="TNO logo" class="company-logo" />
+    <p class="lead">Thesis Research Intern · Dec 2023 — Aug 2024</p>
+    <p class="muted-label">MSc Thesis — Erasmus Mundus Joint Masters in Software Engineering</p>
+
+    <!-- Hero image -->
+     <!-- <img
+      src="/assets/img/work-experience-tno/me-at-tno.jpg"
+      alt="Mixed traffic — autonomous and human-driven vehicles on a motorway"
+      class="hero-image"
+    /> -->
+
+    <a
+      href="https://lutpub.lut.fi/bitstream/handle/10024/168095/MastersThesis_Asim_Tasbiha.pdf?sequence=1"
+      target="_blank"
+      rel="noopener noreferrer"
+      class="thesis-link"
+    >
+      📄 Read the full thesis (PDF)
+    </a>
+
+    <section class="section">
+      <div class="prose">
+
+        <!-- ── Problem ──────────────────────────────────────────────────── -->
+        <h2>The Problem: Technology Isn't the Bottleneck</h2>
+        <p>
+          Autonomous vehicles can already navigate complex road environments. The harder problem
+          is whether humans will ever trust them enough to share the road comfortably. We are entering
+          an era of mixed traffic — where human-driven cars and autonomous vehicles coexist on the same
+          roads — and the quality of that coexistence depends on how predictable and legible AVs feel
+          to the humans around them.
+        </p>
+        <p>
+          Lane changes are one of the most tension-filled moments in this interaction. When a vehicle
+          cuts into your lane, you make a split-second decision about how to respond — slow down,
+          hold speed, brake hard. Human drivers do this intuitively, reading dozens of signals at once.
+          An AV following a rigid rule-based threshold will respond differently, and that unpredictability
+          erodes trust over time.
+        </p>
+        <p>
+          TNO's Helmond department was studying exactly this: can we model how human drivers actually
+          respond to lane-changing events, so that AVs can learn to behave in a way that feels natural
+          rather than mechanical? My thesis sat inside this broader research question.
+        </p>
+        <!-- <img
+        src="/assets/img/work-experience-tno/hero.jpg"
+        alt="Mixed traffic — autonomous and human-driven vehicles on a motorway"
+        class="hero-image"
+        /> -->
+
+        <!-- ── My Research ─────────────────────────────────────────────── -->
+        <h2>My Research Questions</h2>
+        <p>
+          I narrowed the problem to two tractable questions. First: does the physical situation at the
+          moment a vehicle begins a lane change — the gap between cars, their relative speed — actually
+          predict how strongly the approaching driver reacts? And second: which combination of parameters
+          best helps a model forecast that velocity response?
+        </p>
+        <div class="finding-box">
+          RQ1: How does the initial relative gap and relative velocity between the approaching and
+          lane-changing vehicle impact the velocity response?<br /><br />
+          RQ2: Which parameters best enhance the accuracy of predictive models simulating human drivers'
+          velocity response to a lane-changing vehicle?
+        </div>
+        <p>
+          The assumption going in was that a larger gap or slower relative speed would produce a calmer
+          response. What I found was more interesting — and more honest about how complicated humans are.
+        </p>
+
+        <!-- ── Dataset ────────────────────────────────────────────────── -->
+        <h2>Choosing the Right Dataset</h2>
+        <p>
+          Before writing any analysis code, I had to find the right data. I evaluated several large-scale
+          real-world driving datasets — including LiDAR-based collections and bird's-eye-view datasets —
+          assessing each for scenario coverage, label quality, and the granularity of vehicle state
+          information I would need. I chose the Waymo Open Dataset.
+        </p>
+        <p>
+          Waymo provides 10Hz-sampled 3D object tracks for every road agent in the scene: bounding boxes
+          with precise centre points and headings, velocity vectors, and corresponding high-definition
+          3D maps including lane geometry, road edges, and traffic signal states. The motion scenarios
+          are 9.1-second windows (91 steps at 10Hz) mined from real urban driving interactions — rich
+          enough to study the before, during, and after of a lane-change event in detail.
+        </p>
+
+        <!-- <div class="image-pair">
+          <figure>
+            <img
+              src="/assets/img/work-experience-tno/waymo-birds-eye.jpg"
+              alt="Bird's-eye view of a Waymo driving scenario with vehicle tracks overlaid"
+            />
+            <figcaption>Bird's-eye view of a Waymo scenario showing object tracks and lane geometry.</figcaption>
+          </figure>
+          <figure>
+            <img
+              src="/assets/img/work-experience-tno/waymo-3d-labels.jpg"
+              alt="3D bounding box labels from the Waymo Open Dataset"
+            />
+            <figcaption>Waymo's high-accuracy 3D auto-labelling system with per-agent bounding boxes and velocity vectors.</figcaption>
+          </figure>
+        </div> -->
+
+        <!-- <p class="tech-label">Tools</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-tno/python.svg"  alt="Python"  title="Python" />
+          <img src="/assets/img/work-experience-tno/pandas.svg"  alt="Pandas"  title="Pandas" />
+          <img src="/assets/img/work-experience-tno/numpy.svg"   alt="NumPy"   title="NumPy" />
+        </div> -->
+
+        <!-- ── Algorithm ──────────────────────────────────────────────── -->
+        <h2>Building the Lane-Change Detection Algorithm</h2>
+        <p>
+          There was no off-the-shelf solution for extracting lane-change events from Waymo data.
+          I built the detection algorithm from scratch. The process had three stages.
+        </p>
+        <p>
+          <strong>Frame transformation.</strong> Waymo provides velocity in global (world) coordinates.
+          To measure lateral motion meaningfully, I needed velocities relative to each vehicle's own
+          direction of travel. I applied a rotation matrix using each agent's heading angle to transform
+          global velocity components into vehicle-local coordinates — forward and lateral separately.
+          Without this step, a vehicle turning on a curve would produce misleading lateral velocity
+          readings.
+        </p>
+        <p>
+          <strong>Lane-change detection.</strong> Using Waymo's static map features — the polyline
+          representations of lane boundaries sampled at 0.5m resolution — I detected when a vehicle's
+          trajectory crossed a lane boundary. The algorithm identifies the lane-changing vehicle, the
+          approaching vehicle already occupying the target lane, and the moment of intrusion.
+        </p>
+        <p>
+          <strong>Scenario alignment.</strong> Extracted scenarios were then filtered and time-aligned
+          around the intrusion point so that the analysis window captures a consistent before-and-after
+          period for every event.
+        </p>
+
+        <div class="figure-single">
+          <figure>
+            <img
+              src="/assets/img/work-experience-tno/waymo-3d-labels.jpg"
+              alt="Diagram of the lane-change detection algorithm and scenario extraction process"
+            />
+            <figcaption>The lane-change scenario definition: approaching vehicle (lag) on the target lane,
+            lane-changing vehicle crossing the boundary from the adjacent lane.</figcaption>
+          </figure>
+        </div>
+
+        <!-- ── Analysis ───────────────────────────────────────────────── -->
+        <h2>Analysis & Findings</h2>
+        <p>
+          With a clean dataset of extracted scenarios, I ran two analyses.
+        </p>
+        <p>
+          For RQ1, I used <strong>Interrupted Time Series Analysis</strong> — a method suited to studying
+          the effect of a discrete event on a continuous time series. The lane intrusion is the
+          "interruption"; I was measuring whether and how strongly it changed the approaching vehicle's
+          velocity profile. The results confirmed that the intrusion does have a measurable effect.
+          But when I plotted the post-intrusion velocity change against the initial gap and relative
+          velocity, there was no clean linear relationship. The scatter plots were dispersed. Some
+          clustering appeared around certain velocity ranges, but nothing predictable enough to
+          reduce to a threshold rule.
+        </p>
+        <p>
+          For RQ2, I built an <strong>ARIMAX forecasting model</strong> — an autoregressive model
+          that incorporates exogenous variables — to test which parameter combinations best predict
+          the approaching vehicle's velocity response. The sensitivity analysis showed that including
+          initial conditions (gap and relative velocity at the moment of intrusion) does improve
+          predictive accuracy. The combination of initial gap, lane-changing vehicle velocity, and
+          initial relative velocity achieved the lowest average error. But the differences between
+          the top-performing combinations were small enough that no single model clearly dominated.
+        </p>
+
+        <div class="finding-box">
+          Human velocity responses to lane changes are measurably affected by the intrusion event —
+          but the initial physical conditions at the moment of intrusion do not predict the intensity
+          of that response through any clean linear rule. Human behaviour is more context-dependent
+          than current ALKS safety thresholds assume.
+        </div>
+
+        <!-- <p class="tech-label">Methods & Tools</p>
+        <div class="tech-stack">
+          <img src="/assets/img/work-experience-tno/python.svg"  alt="Python"  title="Python" />
+          <img src="/assets/img/work-experience-tno/pandas.svg"  alt="Pandas"  title="Pandas" />
+          <img src="/assets/img/work-experience-tno/numpy.svg"   alt="NumPy"   title="NumPy" />
+          <img src="/assets/img/work-experience-tno/jupyter.svg" alt="Jupyter" title="Jupyter" />
+        </div> -->
+
+        <!-- ── Reflection ─────────────────────────────────────────────── -->
+        <h2>What I Took Away</h2>
+        <p>
+          Two things have stayed with me from this project. The first is how much domain knowledge
+          a software engineer needs before writing a single line of code. I spent weeks understanding
+          vehicle dynamics, coordinate systems, and the physics of lane-changing behaviour before
+          the dataset would even make sense. That groundwork isn't optional — it's where the real
+          decisions happen.
+        </p>
+        <p>
+          The second is something broader: how important it is for engineers to grapple with cultural
+          context before releasing technology into the world. The whole premise of this research was
+          that a technically functioning AV isn't enough. If it doesn't behave in a way that feels
+          legible and trustworthy to human drivers, it won't be accepted — and an AV that isn't
+          accepted can't do any good. That framing shapes how I think about any software that touches
+          the real world.
+        </p>
+
+      </div>
+    </section>
+
+  </main>
+
+  <div id="siteFooter"></div>
+  <script src="/assets/js/layout.js" defer></script>
+
+</body>
+</html>
+
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+IMAGE DOWNLOAD INSTRUCTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+Folder: assets/img/work-experience-tno/
+
+PHOTOS (not icons — use real images)
+──────────────────────────────────────────────────────────────────────────────
+hero.jpg
+  A wide, cinematic shot of motorway traffic — mix of cars, ideally with a
+  sense of speed or density. Good free sources:
+  • Unsplash: https://unsplash.com/s/photos/autonomous-vehicle-highway
+  • Pexels: https://www.pexels.com/search/highway%20traffic/
+  Keep it atmospheric, not too literal.
+
+waymo-birds-eye.jpg
+  A bird's-eye view screenshot from the Waymo Open Dataset viewer showing
+  coloured vehicle tracks, lane geometry lines, and bounding boxes overlaid
+  on the road. You can find these in:
+  • The Waymo Open Dataset paper figures (arXiv:1912.04838)
+  • Waymo's official dataset page: waymo.com/open
+  Save a high-res screenshot of a scenario visualisation.
+
+waymo-3d-labels.jpg
+  A screenshot showing Waymo's 3D bounding boxes around vehicles in a scene —
+  the kind of perspective/camera view with green/blue boxes drawn around each
+  car. Same sources as above. The Waymo Open Dataset GitHub repo also has
+  example visualisation notebooks with good figures.
+
+lane-change-algorithm.jpg
+  A diagram showing your lane-change scenario setup — the approaching vehicle
+  (lag vehicle) on the target lane and the lane-changing vehicle crossing the
+  boundary. Options:
+  a) Screenshot a figure from your own thesis PDF (Figure 1 or Figure 2
+     is likely the scenario definition diagram). This is the best option.
+  b) Draw a clean version in Excalidraw (excalidraw.com) and export as PNG.
+  Save as JPG or PNG — either works.
+
+TECH ICONS (SVGs from simpleicons.org)
+──────────────────────────────────────────────────────────────────────────────
+python.svg    → search "Python"
+pandas.svg    → search "pandas" (the logo is the blue/purple pandas bear)
+numpy.svg     → search "NumPy"
+jupyter.svg   → search "Jupyter"
+═══════════════════════════════════════════════════════════════════════════════
+-->

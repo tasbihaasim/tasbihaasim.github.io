@@ -1,0 +1,34 @@
+# Edit this file to change project order, titles, tags, and thumbnails.
+# The order in this list is the order shown on the page.
+
+projects:
+  - title: "Webhook Aggregator & DLQ Manager"
+    year: 2024
+    slug: "webhook-aggregator-dlq-manager"
+    thumbnail: "/projects/webhook-aggregator-dlq-manager/dlq-manager.png"
+
+  - title: "Risk Calculation from Real-World Driving Data"
+    year: 2024
+    slug: "risk-calculation-real-world-driving-data"
+    thumbnail: "/assets/img/work-experience-tno/tno-logo.png"
+
+  - title: "GroupTherapy+"
+    year: 2023
+    slug: "grouptherapy-plus"
+    thumbnail: "/projects/grouptherapy-plus/grouptherapy-architecture.png"
+
+  - title: "CrowdNav — Self-Adaptive Traffic System"
+    year: 2023
+    slug: "crowdnav"
+    thumbnail: "/projects/crowdnav/crowdnav.png"
+
+  - title: "Flood Management System"
+    year: 2022
+    slug: "flood-management-system"
+    thumbnail: "/projects/flood-management-system/flood-management-system.png"
+
+  - title: "Energy Consumption in Microservices"
+    year: 2022
+    slug: "energy-consumption-microservices"
+    thumbnail: "/projects/energy-consumption-microservices/energy_microservices_study.svg"
+

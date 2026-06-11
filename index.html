@@ -1,0 +1,98 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Tasbiha Asim — Portfolio</title>
+  <meta name="description" content="Portfolio of Tasbiha Asim — AI Platform Backend Engineer." />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+</head>
+
+<body>
+  <!-- <header class="site-header">
+    <a class="brand" href="/">Tasbiha</a>
+
+    <nav class="nav">
+      <a class="nav-link is-active" href="/">Home</a>
+            <a class="nav-link" href="/projects/">Projects</a>
+      <a class="nav-link" href="/resume/">Resume</a>
+      <a class="nav-link" href="/work-experience/">Work Experience</a>
+      <a class="nav-link" href="/contact/">Contact</a>
+    </nav>
+  </header> -->
+  <div id="siteHeader"></div>
+
+
+  <main class="container">
+    <section class="home-hero">
+      <img
+        class="avatar"
+        src="/assets/img/me_again.jpeg"
+        alt="Portrait of Tasbiha Asim"
+        loading="lazy"
+      />
+
+      <div class="hero-text">
+        <h1>Hi, I’m Tasbiha Asim.</h1>
+        <p class="lead">AI Platform Backend Engineer — building reliable systems for ML/AI at scale.</p>
+
+        <p>
+          Backend software engineer with 2+ years of production level Python experience, specializing in scalable backend services,
+          API design, and cloud-native infrastructure. At Miro, owned end-to-end delivery of Python services deployed on Kubernetes
+          (AWS EKS), with full CI/CD via GitHub Actions and Terraform. Holds an Erasmus Mundus MSc in Software Engineering
+          and thrives in agile, cross-functional product teams.
+        </p>
+
+        <div class="cta-row">
+          <a class="btn" href="/projects/">See projects</a>
+          <a class="btn btn-ghost" href="/resume/">View resume</a>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <script>
+    document.getElementById("year").textContent = new Date().getFullYear();
+  </script>
+  <script>
+    (function () {
+      const wrap = document.getElementById("navWrap");
+      const toggle = document.getElementById("navToggle");
+      const nav = document.getElementById("siteNav");
+  
+      if (!wrap || !toggle || !nav) return;
+  
+      function setOpen(open) {
+        wrap.classList.toggle("is-open", open);
+        toggle.setAttribute("aria-expanded", open ? "true" : "false");
+      }
+  
+      toggle.addEventListener("click", (e) => {
+        e.stopPropagation();
+        setOpen(!wrap.classList.contains("is-open"));
+      });
+  
+      // Click outside closes (only matters when pinned open)
+      document.addEventListener("click", (e) => {
+        if (!wrap.classList.contains("is-open")) return;
+        if (!wrap.contains(e.target)) setOpen(false);
+      });
+  
+      // Esc closes
+      document.addEventListener("keydown", (e) => {
+        if (e.key === "Escape") setOpen(false);
+      });
+  
+      // Optional: close after selecting a link on small screens
+      nav.querySelectorAll("a").forEach((a) => {
+        a.addEventListener("click", () => {
+          if (window.matchMedia("(max-width: 860px)").matches) setOpen(false);
+        });
+      });
+    })();
+  </script>
+  <div id="siteFooter"></div>
+  <script src="/assets/js/layout.js" defer></script>
+
+</body>
+</html>

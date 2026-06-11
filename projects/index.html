@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Projects — Tasbiha Asim</title>
+  <meta name="description" content="Projects by Tasbiha Asim — academic, thesis, work and personal projects." />
+
+  <!-- NOTE: projects/ is one level deep, so use ../ for assets -->
+  <link rel="stylesheet" href="../assets/css/style.css" />
+
+  <!-- YAML parser (client-side). Works fine on GitHub Pages. -->
+  <script src="https://cdn.jsdelivr.net/npm/js-yaml@4.1.0/dist/js-yaml.min.js"></script>
+</head>
+
+<body>
+  <div id="siteHeader"></div>
+
+  <main class="container page-wrap projects-page">
+    <h1 class="page-title">Click project photos below to learn more!</h1>
+
+    <div id="filters" class="filters" aria-label="Project filters"></div>
+
+    <section id="grid" class="grid" aria-label="Project grid"></section>
+
+    <p id="empty" class="empty">No projects match this filter.</p>
+  </main>
+
+  <div id="siteFooter"></div>
+
+  <!-- Inject header/footer + nav behavior -->
+  <script src="../assets/js/layout.js" defer></script>
+
+  <script>
+    const FILTER_ALL = "all";
+    let allProjects = [];
+    let activeFilter = FILTER_ALL;
+
+    // Base path that works for:
+    // - user site: https://user.github.io/          -> BASE = ""
+    // - repo site: https://user.github.io/repo/     -> BASE = "/repo"
+    // - custom domain: https://example.com/         -> BASE = ""
+    const pathname = location.pathname;
+    const idx = pathname.indexOf("/projects");
+    const BASE = idx === -1 ? "" : pathname.slice(0, idx);
+
+    function resolvePath(u) {
+      if (!u) return "";
+      if (/^https?:\/\//i.test(u)) return u;  // external URLs
+      if (u.startsWith("/")) return BASE + u; // "/assets/.." -> "/repo/assets/.." on repo pages
+      return BASE + "/" + u;                  // "assets/.."  -> "/repo/assets/.."
+    }
+
+    function normalizeTag(tag) {
+      return String(tag || "").trim().toLowerCase();
+    }
+
+    function titleCase(tag) {
+      const t = normalizeTag(tag);
+      if (!t) return "";
+      return t.charAt(0).toUpperCase() + t.slice(1);
+    }
+
+    function projectMatchesFilter(p, filter) {
+      if (filter === FILTER_ALL) return true;
+      const tags = (p.tags || []).map(normalizeTag);
+      return tags.includes(normalizeTag(filter));
+    }
+
+    function renderFilters(projects) {
+      const filtersEl = document.getElementById("filters");
+      filtersEl.innerHTML = "";
+
+      const seen = new Set();
+      const tagsInOrder = [];
+
+      for (const p of projects) {
+        for (const tag of (p.tags || [])) {
+          const key = normalizeTag(tag);
+          if (key && !seen.has(key)) {
+            seen.add(key);
+            tagsInOrder.push(key);
+          }
+        }
+      }
+
+      const filters = [FILTER_ALL, ...tagsInOrder];
+
+      for (const f of filters) {
+        const btn = document.createElement("button");
+        btn.type = "button";
+        btn.className = "chip" + (f === activeFilter ? " is-active" : "");
+        btn.dataset.filter = f;
+        btn.textContent = (f === FILTER_ALL) ? "All" : titleCase(f);
+
+        btn.addEventListener("click", () => {
+          activeFilter = f;
+          renderFilters(allProjects);
+          renderGrid(allProjects);
+        });
+
+        filtersEl.appendChild(btn);
+      }
+    }
+
+    function renderGrid(projects) {
+      const gridEl = document.getElementById("grid");
+      const emptyEl = document.getElementById("empty");
+
+      gridEl.innerHTML = "";
+
+      const filtered = projects.filter(p => projectMatchesFilter(p, activeFilter));
+
+      if (filtered.length === 0) {
+        emptyEl.style.display = "block";
+        return;
+      } else {
+        emptyEl.style.display = "none";
+      }
+
+      for (const p of filtered) {
+        const a = document.createElement("a");
+        a.className = "tile";
+        a.href = `./${p.slug}/`;
+
+        const thumb = document.createElement("div");
+        thumb.className = "thumb";
+
+        const img = document.createElement("img");
+        img.src = resolvePath(p.thumbnail);
+        img.alt = p.title ? `Thumbnail for ${p.title}` : "Project thumbnail";
+        img.loading = "lazy";
+
+        thumb.appendChild(img);
+
+        const meta = document.createElement("div");
+        meta.className = "tile-meta";
+
+        const h3 = document.createElement("h3");
+        h3.className = "tile-title";
+        h3.textContent = p.title || "Untitled Project";
+
+        const year = document.createElement("div");
+        year.className = "tile-year";
+        year.textContent = p.year || "";
+
+        meta.appendChild(h3);
+        meta.appendChild(year);
+
+        a.appendChild(thumb);
+        a.appendChild(meta);
+
+        gridEl.appendChild(a);
+      }
+    }
+
+    async function loadProjectsYml() {
+      const res = await fetch("./projects.yml", { cache: "no-store" });
+      if (!res.ok) throw new Error(`Failed to load projects.yml (${res.status})`);
+      const text = await res.text();
+      const data = jsyaml.load(text);
+
+      if (!data || !Array.isArray(data.projects)) {
+        throw new Error("projects.yml must contain a top-level 'projects:' list.");
+      }
+      return data.projects;
+    }
+
+    (async function init() {
+      try {
+        allProjects = await loadProjectsYml();
+        renderFilters(allProjects);
+        renderGrid(allProjects);
+      } catch (err) {
+        console.error(err);
+        const emptyEl = document.getElementById("empty");
+        emptyEl.style.display = "block";
+        emptyEl.textContent = "Could not load projects. Check console for details.";
+      }
+    })();
+  </script>
+</body>
+</html>

@@ -1,0 +1,190 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Webhook Aggregator & DLQ Manager — Tasbiha Asim</title>
+  <meta name="description" content="Async FastAPI pipeline with RabbitMQ, Celery, PostgreSQL and dashboard for DLQ management." />
+  <link rel="stylesheet" href="/assets/css/style.css" />
+  <style>
+    .project-links {
+      display: flex;
+      gap: 12px;
+      margin: 20px 0 32px 0;
+      flex-wrap: wrap;
+    }
+    .project-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 10px 18px;
+      border: 1px solid currentColor;
+      border-radius: 6px;
+      text-decoration: none;
+      font-size: 0.9rem;
+      opacity: 0.8;
+      transition: opacity 0.2s;
+    }
+    .project-link:hover { opacity: 1; }
+    .tech-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      margin: 10px 0 28px 0;
+    }
+    .tech-stack img {
+      height: 60px;
+      width: auto;
+      opacity: 0.75;
+      transition: opacity 0.2s;
+    }
+    .tech-stack img:hover { opacity: 1; }
+    .tech-label {
+      font-size: 0.78rem;
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+      color: #888;
+      margin: 20px 0 6px 0;
+    }
+    .highlight-box {
+      border-left: 3px solid #2E86AB;
+      padding: 12px 16px;
+      margin: 20px 0;
+      font-size: 0.95rem;
+      opacity: 0.85;
+    }
+    .hero-img {
+      width: 100%;
+      max-width: 800px;
+      margin: 28px 0;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+    }
+  </style>
+</head>
+
+<body>
+  <div id="siteHeader"></div>
+
+  <main class="container page-wrap project-page">
+    <a class="muted" href="/projects/">← Back to Projects</a>
+
+    <h1>Webhook Aggregator & DLQ Manager</h1>
+    <p class="lead">
+      An async event-processing pipeline with a real-time dashboard for inspecting and replaying
+      dead-lettered webhook events — built to explore what production-grade reliability infrastructure
+      actually looks like from the ground up.
+    </p>
+
+    <div class="project-links">
+      <a href="https://github.com/tasbihaasim/dlq-manager" target="_blank" rel="noopener noreferrer" class="project-link">
+        ⌥ GitHub
+      </a>
+    </div>
+
+    <img
+      src="/projects/webhook-aggregator-dlq-manager/dlq-manager.png"
+      alt="DLQ Manager dashboard showing failed webhook events and replay controls"
+      class="hero-img"
+    />
+
+    <section class="section">
+      <div class="prose">
+
+        <h2>Why I Built This</h2>
+        <p>
+          I had a habit of placing myself in hypothetical engineering scenarios and asking: if I were
+          running a platform that processed thousands of webhook events per hour, what would break first?
+          The answer, almost always, is delivery. Webhooks fail — the downstream service is down, the
+          network times out, the payload is malformed. What happens to those events?
+        </p>
+        <p>
+          In production systems, the answer is a Dead Letter Queue: a holding area for messages that
+          couldn't be processed, with tooling to inspect what went wrong and replay the events once
+          the underlying issue is resolved. I wanted to build one properly — not a toy version, but
+          something with the moving parts a real system would have: async processing, persistent storage,
+          retry logic, and a dashboard that gives an operator actual visibility.
+        </p>
+
+        <h2>What It Does</h2>
+        <p>
+          Incoming webhooks hit a FastAPI endpoint and are immediately pushed onto a RabbitMQ queue
+          rather than processed inline. Celery workers pick up jobs from the queue asynchronously,
+          attempt delivery, and handle failures — routing undeliverable events into the dead letter
+          queue with their failure reason and metadata preserved. PostgreSQL backs the persistent
+          state: event history, retry counts, timestamps, and current status.
+        </p>
+        <p>
+          The dashboard gives you a live view of the DLQ — what's in it, why it failed, and the
+          ability to replay individual events or bulk-replay by failure type. The goal was to make
+          the failure state of the system as visible and actionable as the happy path.
+        </p>
+
+        <div class="highlight-box">
+          The interesting engineering constraint: replay has to be idempotent. Sending a webhook twice
+          to a downstream service shouldn't cause a double-charge or a duplicate record. Building the
+          retry logic to handle this correctly was the most thought-provoking part of the project.
+        </div>
+
+        <h2>Architecture</h2>
+        <p>
+          The pipeline has three distinct layers. The ingestion layer (FastAPI) accepts and validates
+          incoming events and queues them immediately — keeping the HTTP response time fast regardless
+          of downstream load. The processing layer (Celery + RabbitMQ) handles delivery attempts,
+          exponential backoff on failure, and DLQ routing. The persistence layer (PostgreSQL) records
+          the full event lifecycle so nothing is ever silently lost.
+        </p>
+        <p>
+          The dashboard reads directly from the database, giving operators a consistent view of
+          system state without coupling the UI to the queue itself.
+        </p>
+
+        <p class="tech-label">Stack</p>
+        <div class="tech-stack">
+          <img src="/projects/webhook-aggregator-dlq-manager/celery.png"     alt="Celery"     title="Celery" />
+          <img src="/projects/webhook-aggregator-dlq-manager/PostgreSQL.png" alt="PostgreSQL" title="PostgreSQL" />
+          <img src="/projects/webhook-aggregator-dlq-manager/docker.png"     alt="Docker"     title="Docker" />
+        </div>
+
+        <h2>What I Learned</h2>
+        <p>
+          Building this made the distributed systems literature feel much more concrete. Concepts like
+          at-least-once delivery, idempotency keys, and backpressure stopped being abstractions and
+          became actual design decisions I had to make. I also came away with a much better intuition
+          for when a message queue is the right tool — and when it's overkill.
+        </p>
+
+      </div>
+    </section>
+  </main>
+
+  <div id="siteFooter"></div>
+  <script src="/assets/js/layout.js" defer></script>
+</body>
+</html>
+
+<!--
+═══════════════════════════════════════════════════════════════════════════════
+ICON DOWNLOAD INSTRUCTIONS
+═══════════════════════════════════════════════════════════════════════════════
+
+Folder: projects/webhook-aggregator-dlq-manager/icons/
+
+All available from Simple Icons (https://simpleicons.org):
+
+Filename          Search term
+──────────────────────────────────
+python.svg        Python
+fastapi.svg       FastAPI
+celery.svg        Celery  (may not be on Simple Icons — use the official
+                  Celery logo from docs.celeryq.dev/en/stable/_static/celery_512.png
+                  and convert, or skip if unavailable)
+rabbitmq.svg      RabbitMQ
+postgresql.svg    PostgreSQL
+docker.svg        Docker
+═══════════════════════════════════════════════════════════════════════════════
+
+NOTE: If some of these icon paths don't match your site's existing icon folder
+structure, update the src= paths above to match wherever you keep icons.
+-->

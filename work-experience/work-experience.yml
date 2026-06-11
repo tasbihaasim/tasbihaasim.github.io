@@ -1,0 +1,23 @@
+# work-experience/work-experience.yml
+experiences:
+  - slug: miro
+    role: Miro
+    company: Miro
+    duration: "Aug 2024 — Aug 2026"
+    location: "Remote / Netherlands"
+    logo: "/assets/img/work-experience-miro/miro.png"
+    summary: |
+      - Associate Software Engineer (Aug 2025 — Aug 2026): Integrated Microsoft Purview governance data across three Python backend services for AI compliance reporting; built an AI interaction logging producer; led service decommissioning delivering ~$128K in annual savings; migrated image-processing from PIL to OpenCV.
+      - Graduate Software Engineer, AI Platform Team (Feb 2025 — Aug 2025): Optimized a screenshot scanner to send resource IDs, designed Kubernetes right-sizing and authored launch runbook, deprecated legacy ML services ahead of GA.
+      - Graduate Software Engineer, Data Engineering Team (Aug 2024 — Feb 2025): Built a PySpark keyword detection prototype deployed across regions; migrated SaaS sources to Airbyte-backed dbt models; improved data reliability with unit/data tests across 15+ dbt models.
+
+  - slug: tno
+    role: Thesis Research Intern
+    company: TNO Helmond
+    duration: "Dec 2023 — Aug 2024"
+    location: "Helmond, Netherlands"
+    logo: "/assets/img/work-experience-tno/tno-logo.png"
+    summary: |
+      - Developed a lane-change detection algorithm and risk model for real-world driving data using Waymo and LiDAR datasets.
+      - Applied Interrupted Time Series Analysis and ARIMAX forecasting to study velocity response after lane intrusion.
+      - Found that initial conditions matter for risk but do not reduce the response to a single clean linear threshold.
