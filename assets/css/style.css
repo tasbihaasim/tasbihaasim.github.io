@@ -125,6 +125,158 @@ img { max-width: 100%; height: auto; display: block; }
   font-size: 18px;
 }
 
+/* ---------- Side Quests ---------- */
+.side-quests {
+  margin-top: 44px;
+  padding: 28px 0 48px 0;
+  border-top: 1px solid var(--line);
+}
+
+.side-quests h2 {
+  margin: 0 0 18px 0;
+  font-size: 28px;
+}
+
+.quest-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: 18px;
+  margin-top: 16px;
+}
+
+.quest-card {
+  padding: 14px;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  background: rgba(255,255,255,0.02);
+}
+
+.tinker-row {
+  display: flex;
+  gap: 8px;
+  margin-top: 12px;
+}
+
+.tinker-row img {
+  width: calc((100% - 16px) / 3);
+  height: 100px;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.35s ease, box-shadow 0.35s ease;
+}
+
+.tinker-row img:hover { transform: translateY(-6px) rotate(-1.5deg); box-shadow: 0 10px 20px rgba(0,0,0,0.35); }
+
+.gallery {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 12px;
+}
+.gallery img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 10px;
+  transition: transform 0.25s ease;
+}
+.gallery img:hover { transform: scale(1.03); }
+
+/* small floating animation for se4gd images */
+.se4gd img { animation: floaty 6s ease-in-out infinite; }
+@keyframes floaty {
+  0% { transform: translateY(0px); }
+  50% { transform: translateY(-6px); }
+  100% { transform: translateY(0px); }
+}
+
+/* mosaic for side-quests page */
+.quest-mosaic {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  margin-top: 18px;
+}
+.quest-mosaic img {
+  width: 100%;
+  aspect-ratio: 1 / 1;
+  object-fit: cover;
+  border-radius: 12px;
+  transition: transform 0.25s ease, box-shadow 0.25s ease;
+}
+.quest-mosaic img:hover { transform: translateY(-6px) scale(1.02); box-shadow: 0 12px 30px rgba(0,0,0,0.35); }
+
+.side-note {
+  font-size: 1.05rem;
+  color: var(--text);
+  background: linear-gradient(90deg, rgba(125,211,252,0.06), rgba(167,139,250,0.04));
+  padding: 12px 14px;
+  border-radius: 10px;
+  margin-bottom: 12px;
+  font-style: italic;
+}
+
+/* ---------- Skill Belt ---------- */
+.skill-belt {
+  margin-top: 32px;
+  padding: 16px 20px;
+  background: rgba(255,255,255,0.95);
+  border: 1px solid rgba(255,255,255,0.20);
+  border-radius: 12px;
+}
+
+.tech-belt-row {
+  display: grid;
+  grid-template-columns: repeat(10, 1fr);
+  gap: 16px 8px;
+  align-items: center;
+  justify-items: center;
+}
+
+.tech-belt-row img {
+  height: 32px;
+  width: auto;
+  opacity: 0.75;
+  transition: all 0.2s ease;
+}
+
+.skill-icon {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.skill-icon::after {
+  content: attr(data-label);
+  position: absolute;
+  bottom: calc(100% + 8px);
+  left: 50%;
+  transform: translateX(-50%) translateY(4px);
+  background: #1a1a2e;
+  color: #fff;
+  font-size: 11px;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 4px 8px;
+  border-radius: 6px;
+  white-space: nowrap;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.15s ease, transform 0.15s ease;
+  z-index: 10;
+}
+
+.skill-icon:hover::after {
+  opacity: 1;
+  transform: translateX(-50%) translateY(0);
+}
+
+.skill-icon:hover img {
+  opacity: 1;
+  transform: translateY(-3px);
+}
+
 /* ---------- Buttons ---------- */
 .cta-row {
   display: flex;
@@ -526,6 +678,7 @@ details[open] > summary .details-chev {
   }
   .avatar { width: 120px; height: 120px; }
   .hero-text h1 { font-size: 32px; }
+  .tech-belt-row { grid-template-columns: repeat(5, 1fr); }
 }
 /* =========================
    Responsive nav (hamburger)

@@ -3,7 +3,7 @@
 
 projects:
   - title: "Webhook Aggregator & DLQ Manager"
-    year: 2024
+    year: 2026
     slug: "webhook-aggregator-dlq-manager"
     thumbnail: "/projects/webhook-aggregator-dlq-manager/dlq-manager.png"
 
